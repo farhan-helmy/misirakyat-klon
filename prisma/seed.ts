@@ -62,7 +62,7 @@ async function seed() {
 
 
 	const userWithShop = await prisma.user.create({
-		select: { id: true },
+		select: { id: true, shop: true },
 		data: {
 			email: 'nasi@kandar.com',
 			username: 'nasikandar',
@@ -95,7 +95,7 @@ async function seed() {
 			},
 			shop: {
 				connect: {
-					id: userWithShop.id
+					id: userWithShop.shop[0].id
 				}
 			}
 		}
