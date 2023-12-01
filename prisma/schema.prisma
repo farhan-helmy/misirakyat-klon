@@ -1,0 +1,186 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @default(cuid())
+  email    String  @unique
+  username String  @unique
+  name     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  image       UserImage?
+  password    Password?
+  roles       Role[]
+  sessions    Session[]
+  connections Connection[]
+  review      Review[]
+  order       Order[]
+  shop        Shop[]
+}
+
+model Shop {
+  id            String  @id @default(cuid())
+  name          String
+  address       String?
+  operationTime String?
+  promoText     String?
+  state         String?
+  city          String?
+
+  menu   Menu[]
+  review Review[]
+  order  Order[]
+  user   User     @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  shop   Shop   @relation(fields: [shopId], references: [id])
+  shopId String
+
+  menu   Menu   @relation(fields: [menuId], references: [id])
+  menuId String
+}
+
+model Menu {
+  id        String      @id @default(cuid())
+  name      String
+  price     String
+  shop      Shop        @relation(fields: [shopId], references: [id])
+  shopId    String
+  menuImage MenuImage[]
+  order     Order[]
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  shop   Shop   @relation(fields: [shopId], references: [id])
+  shopId String
+}
+
+model MenuImage {
+  id      String  @id @default(cuid())
+  altText String?
+  url     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  menu   Menu   @relation(fields: [menuId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  menuId String @unique
+}
+
+model UserImage {
+  id      String  @id @default(cuid())
+  altText String?
+  url     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String @unique
+}
+
+model Password {
+  hash String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String @unique
+}
+
+model Session {
+  id             String   @id @default(cuid())
+  expirationDate DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String
+
+  // non-unique foreign key
+  @@index([userId])
+}
+
+model Role {
+  id          String @id @default(cuid())
+  name        String @unique
+  description String @default("")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users User[]
+}
+
+model Verification {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  /// The type of verification, e.g. "email" or "phone"
+  type String
+
+  /// The thing we're trying to verify, e.g. a user's email or phone number
+  target String
+
+  /// The secret key used to generate the otp
+  secret String
+
+  /// The algorithm used to generate the otp
+  algorithm String
+
+  /// The number of digits in the otp
+  digits Int
+
+  /// The number of seconds the otp is valid for
+  period Int
+
+  /// The valid characters for the otp
+  charSet String
+
+  /// When it's safe to delete this verification
+  expiresAt DateTime?
+
+  @@unique([target, type])
+}
+
+model Connection {
+  id           String @id @default(cuid())
+  providerName String
+  providerId   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String
+
+  @@unique([providerName, providerId])
+}
