@@ -25,10 +25,6 @@ import {
 	invariantResponse,
 	useIsPending,
 } from '#app/utils/misc.tsx'
-import {
-	requireUserWithPermission,
-	userHasPermission,
-} from '#app/utils/permissions.ts'
 import { redirectWithToast } from '#app/utils/toast.server.ts'
 import { useOptionalUser } from '#app/utils/user.ts'
 import { type loader as notesLoader } from './notes.tsx'
@@ -83,35 +79,32 @@ export async function action({ request }: DataFunctionArgs) {
 
 	const { noteId } = submission.value
 
-	const note = await prisma.note.findFirst({
-		select: { id: true, ownerId: true, owner: { select: { username: true } } },
-		where: { id: noteId },
-	})
-	invariantResponse(note, 'Not found', { status: 404 })
+	// const note = await prisma.note.findFirst({
+	// 	select: { id: true, ownerId: true, owner: { select: { username: true } } },
+	// 	where: { id: noteId },
+	// })
+	// invariantResponse(note, 'Not found', { status: 404 })
 
-	const isOwner = note.ownerId === userId
-	await requireUserWithPermission(
-		request,
-		isOwner ? `delete:note:own` : `delete:note:any`,
-	)
+	// const isOwner = note.ownerId === userId
+	// await requireUserWithPermission(
+	// 	request,
+	// 	isOwner ? `delete:note:own` : `delete:note:any`,
+	// )
 
-	await prisma.note.delete({ where: { id: note.id } })
+	// await prisma.note.delete({ where: { id: note.id } })
 
-	return redirectWithToast(`/users/${note.owner.username}/notes`, {
-		type: 'success',
-		title: 'Success',
-		description: 'Your note has been deleted.',
-	})
+	// return redirectWithToast(`/users/${note.owner.username}/notes`, {
+	// 	type: 'success',
+	// 	title: 'Success',
+	// 	description: 'Your note has been deleted.',
+	// })
 }
 
 export default function NoteRoute() {
 	const data = useLoaderData<typeof loader>()
 	const user = useOptionalUser()
 	const isOwner = user?.id === data.note.ownerId
-	const canDelete = userHasPermission(
-		user,
-		isOwner ? `delete:note:own` : `delete:note:any`,
-	)
+	
 	const displayBar = canDelete || isOwner
 
 	return (

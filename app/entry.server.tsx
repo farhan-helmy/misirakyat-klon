@@ -12,6 +12,7 @@ import { renderToPipeableStream } from 'react-dom/server'
 import { getEnv, init } from './utils/env.server.ts'
 import { NonceProvider } from './utils/nonce-provider.ts'
 import { makeTimings } from './utils/timing.server.ts'
+import 'remixicon/fonts/remixicon.css'
 
 const ABORT_DELAY = 5000
 
