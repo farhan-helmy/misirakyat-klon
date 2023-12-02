@@ -227,25 +227,10 @@ function App() {
 	const nonce = useNonce()
 	// const user = useOptionalUser()
 	const theme = useTheme()
-	const matches = useMatches()
-	const isHeader = matches.some(m => m.pathname === '/order')
-
+	
 	return (
 		<Document nonce={nonce} theme={theme} env={data.ENV}>
 			<div className="flex h-screen flex-col justify-between">
-				{!isHeader ? (
-					<header className="container py-6">
-						{}
-						<nav>
-							<div className="flex flex-wrap items-center justify-between gap-4 sm:flex-nowrap md:gap-8">
-								<Link to="/">
-									<div>Misi Klon</div>
-								</Link>
-							</div>
-						</nav>
-					</header>
-				) : null}
-
 				<div className="flex-1">
 					<Outlet />
 				</div>

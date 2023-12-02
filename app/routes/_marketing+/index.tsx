@@ -21,8 +21,8 @@ export const meta: MetaFunction = () => [{ title: 'Misi Klon' }]
 
 export default function Index() {
 	return (
-		<main className="relative min-h-screen sm:flex sm:items-center sm:justify-center">
-			<Link to="order">
+		<main className="relative min-h-screen sm:flex sm:items-center sm:justify-center pt-4">
+			<Link to="shop">
 				<div className="p-2">
 					<Alert className="flex flex-row justify-between">
 						<div>

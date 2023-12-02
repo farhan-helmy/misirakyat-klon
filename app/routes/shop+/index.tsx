@@ -23,35 +23,46 @@ import {
 	SelectValue,
 } from '#app/components/ui/select.tsx'
 
-const foodCategories = [
-	'Mie',
-	'Nasi',
-	'Sushi',
-	'Pizza',
-	'Burger',
-	'Salad',
-	'Pasta',
-	'DimSum',
-	'Steak',
-	'Ramen',
-	'Tacos',
-	'Eskem',
-	'Kebab',
-	'Soup',
-	'Curry',
-]
+import { foodCategories, fakeKedai } from './fakedata.ts'
+
+function ShopList() {
+	return (
+		<div className='flex flex-col gap-2 overflow-auto max-h-screen'>
+			{fakeKedai.map((kedai, index) => (
+				<div key={index}>
+					<Link to={`/shop/${kedai.nama}`}>
+						<div className='p-4 flex flex-row items-center justify-between h-24 shadow-md border-gray-400 border rounded-md'>
+							<div className='flex flex-row items-center gap-2'>
+								<img src={`https://api.dicebear.com/7.x/pixel-art/svg?seed=${kedai.nama}`} alt="user" className='h-8 w-8' />
+								<div className='tuncate'>
+									<p className='text-md font-bold'>{kedai.nama}</p>
+									<p className='text-xs italic font-light'>{kedai.review}</p>
+								</div>
+							</div>
+							<div className='flex flex-row items-center gap-2'>
+								<div>
+									<p className='text-xs'>4.5</p>
+								</div>
+							</div>
+						</div>
+					</Link>
+				</div>
+			))}
+		</div>
+	)
+}
 
 function FoodTypeList() {
 	return (
-		<div className="flex flex-row gap-2 overflow-auto">
+		<div className="flex flex-row overflow-auto">
 			{foodCategories.map((category, index) => (
 				<div key={index}>
 					<div className="flex flex-col items-center justify-center rounded-md w-12">
-						
-                        <img src="/img/user.png" alt="user" className='h-8 w-8' />
+
+						<img src={`https://api.dicebear.com/7.x/icons/svg?seed=${category}`} alt="user" className='h-8 w-8' />
 						<div>
-                            <p className='text-xs'>{category}</p>
-                        </div>
+							<p className='text-xs'>{category}</p>
+						</div>
 					</div>
 				</div>
 			))}
@@ -112,7 +123,7 @@ export async function loader({ request }: DataFunctionArgs) {
 	return null
 }
 
-export default function OrderRoute() {
+export default function ShopRoute() {
 	const data = useLoaderData<typeof loader>()
 
 	return (
@@ -121,7 +132,9 @@ export default function OrderRoute() {
 			<div className="pt-8">
 				<FoodTypeList />
 			</div>
-			<h1>Order page</h1>
+			<div className='pt-4'>
+				<ShopList />
+			</div>
 		</div>
 	)
 }
