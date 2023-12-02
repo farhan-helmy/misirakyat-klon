@@ -24,24 +24,29 @@ import {
 } from '#app/components/ui/select.tsx'
 
 import { foodCategories, fakeKedai } from './fakedata.ts'
+import { ThemeSwitch } from '#app/root.tsx'
 
 function ShopList() {
 	return (
-		<div className='flex flex-col gap-2 overflow-auto max-h-screen'>
+		<div className="flex flex-col gap-2">
 			{fakeKedai.map((kedai, index) => (
 				<div key={index}>
 					<Link to={`/shop/${kedai.nama}`}>
-						<div className='p-4 flex flex-row items-center justify-between h-24 shadow-md border-gray-400 border rounded-md'>
-							<div className='flex flex-row items-center gap-2'>
-								<img src={`https://api.dicebear.com/7.x/pixel-art/svg?seed=${kedai.nama}`} alt="user" className='h-8 w-8' />
-								<div className='tuncate'>
-									<p className='text-md font-bold'>{kedai.nama}</p>
-									<p className='text-xs italic font-light'>{kedai.review}</p>
+						<div className="flex h-24 flex-row items-center justify-between rounded-md border border-gray-400 p-4 shadow-md">
+							<div className="flex flex-row items-center gap-2">
+								<img
+									src={`https://api.dicebear.com/7.x/pixel-art/svg?seed=${kedai.nama}`}
+									alt="user"
+									className="h-8 w-8"
+								/>
+								<div className="tuncate">
+									<p className="text-md font-bold">{kedai.nama}</p>
+									<p className="text-xs font-light italic">{kedai.review}</p>
 								</div>
 							</div>
-							<div className='flex flex-row items-center gap-2'>
+							<div className="flex flex-row items-center gap-2">
 								<div>
-									<p className='text-xs'>4.5</p>
+									<p className="text-xs">4.5</p>
 								</div>
 							</div>
 						</div>
@@ -57,11 +62,14 @@ function FoodTypeList() {
 		<div className="flex flex-row overflow-auto">
 			{foodCategories.map((category, index) => (
 				<div key={index}>
-					<div className="flex flex-col items-center justify-center rounded-md w-12">
-
-						<img src={`https://api.dicebear.com/7.x/icons/svg?seed=${category}`} alt="user" className='h-8 w-8' />
+					<div className="flex w-12 flex-col items-center justify-center rounded-md">
+						<img
+							src={`https://api.dicebear.com/7.x/icons/svg?seed=${category}`}
+							alt="user"
+							className="h-8 w-8"
+						/>
 						<div>
-							<p className='text-xs'>{category}</p>
+							<p className="text-xs">{category}</p>
 						</div>
 					</div>
 				</div>
@@ -113,7 +121,9 @@ function PilihKawasanDialog() {
 function Header() {
 	return (
 		<div className="flex flex-row justify-between">
-			<div>Misi Klon | Makanan</div>
+			<Link to="/">
+				<div>Misi Klon | Kedai</div>
+			</Link>
 			<PilihKawasanDialog />
 		</div>
 	)
@@ -132,7 +142,7 @@ export default function ShopRoute() {
 			<div className="pt-8">
 				<FoodTypeList />
 			</div>
-			<div className='pt-4'>
+			<div className="pt-4">
 				<ShopList />
 			</div>
 		</div>

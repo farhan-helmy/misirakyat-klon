@@ -94,3 +94,62 @@ export const fakeKedai =  [
 	'Soup',
 	'Curry',
 ]
+
+export const fakeMenuList = [
+  {
+    'nama': 'Mie Ayam',
+    'kategori': 'Mie',
+    'harga': 15000,
+    'rating': 4.5,
+    'ulasan': 10,
+    'gambar': 'https://i.ibb.co/0G2J3Q4/mie-ayam.jpg',
+  },
+  {
+    'nama': 'Mie Goreng',
+    'kategori': 'Mie',
+    'harga': 15000,
+    'rating': 4.5,
+    'ulasan': 10,
+    'gambar': 'https://i.ibb.co/0G2J3Q4/mie-ayam.jpg',
+  },
+  {
+    'nama': 'Mie Bakso',
+    'kategori': 'Mie',
+    'harga': 15000,
+    'rating': 4.5,
+    'ulasan': 10,
+    'gambar': 'https://i.ibb.co/0G2J3Q4/mie-ayam.jpg',
+  },
+  {
+    'nama': 'Mie Rebus',
+    'kategori': 'Mie',
+    'harga': 15000,
+    'rating': 4.5,
+    'ulasan': 10,
+    'gambar': 'https://i.ibb.co/0G2J3Q4/mie-ayam.jpg',
+  },
+  {
+    'nama': 'Nasi Goreng',
+    'kategori': 'Nasi',
+    'harga': 15000,
+    'rating': 4.5,
+    'ulasan': 10,
+    'gambar': 'https://i.ibb.co/0G2J3Q4/mie-ayam.jpg',
+  },
+  {
+    'nama': 'Nasi Ayam',
+    'kategori': 'Nasi',
+    'harga': 15000,
+    'rating': 4.5,
+    'ulasan': 10,
+    'gambar': 'https://i.ibb.co/0G2J3Q4/mie-ayam.jpg',
+  },
+  {
+    'nama': 'Nasi Uduk',
+    'kategori': 'Nasi',
+    'harga': 15000,
+    'rating': 4.5,
+    'ulasan': 10,
+    'gambar': 'https://i.ibb.co/0G2J3Q4/mie-ayam.jpg',
+  },
+]

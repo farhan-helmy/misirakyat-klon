@@ -231,16 +231,10 @@ function App() {
 	return (
 		<Document nonce={nonce} theme={theme} env={data.ENV}>
 			<div className="flex h-screen flex-col justify-between">
-				<div className="flex-1">
+				<div className="flex-1 z-10">
 					<Outlet />
 				</div>
 
-				<div className="container flex justify-between pb-5">
-					<Link to="/">
-						<div>Misi klon</div>
-					</Link>
-					<ThemeSwitch userPreference={data.requestInfo.userPrefs.theme} />
-				</div>
 			</div>
 			<EpicToaster toast={data.toast} />
 			<EpicProgress />
@@ -352,7 +346,7 @@ export function useOptimisticThemeMode() {
 	}
 }
 
-function ThemeSwitch({ userPreference }: { userPreference?: Theme | null }) {
+export function ThemeSwitch({ userPreference }: { userPreference?: Theme | null }) {
 	const fetcher = useFetcher<typeof action>()
 
 	const [form] = useForm({
