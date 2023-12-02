@@ -7,11 +7,11 @@ import {
 	AlertDescription,
 	AlertTitle,
 } from '#app/components/ui/alert.tsx'
+import { Button } from '#app/components/ui/button.tsx'
 import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from '#app/components/ui/card.tsx'
@@ -42,11 +42,9 @@ export default function Index() {
 					<CardDescription>Daftar sebagai vendor</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<p>Card Content</p>
+					<Button> Daftar </Button>
 				</CardContent>
-				<CardFooter>
-					<p>Card Footer</p>
-				</CardFooter>
+				
 			</Card>
 			<Card>
 				<CardHeader>
@@ -54,11 +52,9 @@ export default function Index() {
 					<CardDescription>Daftar sebagai rider</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<p>Card Content</p>
+				<Button> Daftar </Button>
 				</CardContent>
-				<CardFooter>
-					<p>Card Footer</p>
-				</CardFooter>
+				
 			</Card>
 			</div>
 			

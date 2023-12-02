@@ -20,7 +20,7 @@ import {
 	useFetcher,
 	useFetchers,
 	useLoaderData,
-
+	useMatches,
 	useSubmit,
 } from '@remix-run/react'
 import { withSentry } from '@sentry/remix'
@@ -55,7 +55,7 @@ import { useRequestInfo } from './utils/request-info.ts'
 import { type Theme, setTheme, getTheme } from './utils/theme.server.ts'
 import { makeTimings, time } from './utils/timing.server.ts'
 import { getToast } from './utils/toast.server.ts'
-import { useOptionalUser, useUser } from './utils/user.ts'
+import { useUser } from './utils/user.ts'
 
 export const links: LinksFunction = () => {
 	return [
@@ -87,8 +87,8 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
 	return [
-		{ title: data ? 'Epic Notes' : 'Error | Epic Notes' },
-		{ name: 'description', content: `Your own captain's log` },
+		{ title: data ? 'Misi Klon' : 'Error | Misi Klon' },
+		{ name: 'description', content: `Klon kepada misi rakyat` },
 	]
 }
 
@@ -112,7 +112,6 @@ export async function loader({ request }: DataFunctionArgs) {
 							roles: {
 								select: {
 									name: true,
-									
 								},
 							},
 						},
@@ -226,35 +225,26 @@ function Document({
 function App() {
 	const data = useLoaderData<typeof loader>()
 	const nonce = useNonce()
-	const user = useOptionalUser()
+	// const user = useOptionalUser()
 	const theme = useTheme()
-	
+	const matches = useMatches()
+	const isHeader = matches.some(m => m.pathname === '/order')
 
 	return (
 		<Document nonce={nonce} theme={theme} env={data.ENV}>
 			<div className="flex h-screen flex-col justify-between">
-				<header className="container py-6">
-					<nav>
-						<div className="flex flex-wrap items-center justify-between gap-4 sm:flex-nowrap md:gap-8">
-							<Link to="/">
-								<div>
-									Misi Klon
-								</div>
-							</Link>
-							
-							<div className="flex items-center gap-10">
-								{user ? (
-									<UserDropdown />
-								) : (
-									<Button asChild variant="default" size="sm">
-										<Link to="/login">Log In</Link>
-									</Button>
-								)}
+				{!isHeader ? (
+					<header className="container py-6">
+						{}
+						<nav>
+							<div className="flex flex-wrap items-center justify-between gap-4 sm:flex-nowrap md:gap-8">
+								<Link to="/">
+									<div>Misi Klon</div>
+								</Link>
 							</div>
-						
-						</div>
-					</nav>
-				</header>
+						</nav>
+					</header>
+				) : null}
 
 				<div className="flex-1">
 					<Outlet />
@@ -262,9 +252,7 @@ function App() {
 
 				<div className="container flex justify-between pb-5">
 					<Link to="/">
-						<div>
-							Misi klon
-						</div>
+						<div>Misi klon</div>
 					</Link>
 					<ThemeSwitch userPreference={data.requestInfo.userPrefs.theme} />
 				</div>
