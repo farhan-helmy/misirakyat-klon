@@ -27,6 +27,7 @@ model User {
   review      Review[]
   order       Order[]
   shop        Shop[]
+
 }
 
 model Shop {
@@ -68,6 +69,7 @@ model Menu {
   shopId    String
   menuImage MenuImage[]
   order     Order[]
+  Cart      Cart[]
 }
 
 model Review {

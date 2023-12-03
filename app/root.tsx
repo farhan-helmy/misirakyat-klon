@@ -20,7 +20,6 @@ import {
 	useFetcher,
 	useFetchers,
 	useLoaderData,
-	useMatches,
 	useSubmit,
 } from '@remix-run/react'
 import { withSentry } from '@sentry/remix'
@@ -227,14 +226,13 @@ function App() {
 	const nonce = useNonce()
 	// const user = useOptionalUser()
 	const theme = useTheme()
-	
+
 	return (
 		<Document nonce={nonce} theme={theme} env={data.ENV}>
 			<div className="flex h-screen flex-col justify-between">
-				<div className="flex-1 z-10">
+				<div className="z-10 flex-1">
 					<Outlet />
 				</div>
-
 			</div>
 			<EpicToaster toast={data.toast} />
 			<EpicProgress />
@@ -346,7 +344,11 @@ export function useOptimisticThemeMode() {
 	}
 }
 
-export function ThemeSwitch({ userPreference }: { userPreference?: Theme | null }) {
+export function ThemeSwitch({
+	userPreference,
+}: {
+	userPreference?: Theme | null
+}) {
 	const fetcher = useFetcher<typeof action>()
 
 	const [form] = useForm({
