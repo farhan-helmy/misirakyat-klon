@@ -24,7 +24,8 @@ import {
 } from '#app/components/ui/select.tsx'
 
 import { foodCategories, fakeKedai } from './fakedata.ts'
-import { ThemeSwitch } from '#app/root.tsx'
+import malaysiapostcodes from 'malaysia-postcodes'
+import { useState } from 'react'
 
 function ShopList() {
 	return (
@@ -79,6 +80,15 @@ function FoodTypeList() {
 }
 
 function PilihKawasanDialog() {
+	const [stateSelect, setStateSelect] = useState(false)
+	const [cities, setCities] = useState<string[]>([])
+	const states = malaysiapostcodes.getStates()
+
+	const handleStateChange = (value: string) => {
+		setStateSelect(true)
+		setCities(malaysiapostcodes.getCities(value))
+	}
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -94,21 +104,44 @@ function PilihKawasanDialog() {
 						<Label htmlFor="link" className="sr-only">
 							Negeri
 						</Label>
-						<Select>
+						<Select onValueChange={handleStateChange}>
 							<SelectTrigger>
 								<SelectValue placeholder="Negeri" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="light">Light</SelectItem>
-								<SelectItem value="dark">Dark</SelectItem>
-								<SelectItem value="system">System</SelectItem>
+								{states.map((state, index) => (
+									<SelectItem key={index} value={state}>
+										{state}
+									</SelectItem>
+								))}
 							</SelectContent>
 						</Select>
 					</div>
 				</div>
+				{stateSelect ? (
+					<div className="flex items-center space-x-2">
+					<div className="grid flex-1 gap-2">
+						<Label htmlFor="link" className="sr-only">
+							Daerah
+						</Label>
+						<Select>
+							<SelectTrigger>
+								<SelectValue placeholder="Daerah" />
+							</SelectTrigger>
+							<SelectContent>
+								{cities.map((city, index) => (
+									<SelectItem key={index} value={city}>
+										{city}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+					</div>
+				</div>
+				): null}
 				<DialogFooter className="sm:justify-start">
 					<DialogClose asChild>
-						<Button type="button" variant="secondary">
+						<Button variant="secondary" onClick={() => setStateSelect(false)}>
 							Hantar
 						</Button>
 					</DialogClose>
