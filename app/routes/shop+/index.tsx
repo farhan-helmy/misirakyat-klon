@@ -1,6 +1,8 @@
-import { CopyIcon } from '@radix-ui/react-icons'
-import { json, redirect, type DataFunctionArgs } from '@remix-run/node'
-import { Link, useLoaderData } from '@remix-run/react'
+
+import { type DataFunctionArgs } from '@remix-run/node'
+import { Link } from '@remix-run/react'
+import malaysiapostcodes from 'malaysia-postcodes'
+import { useState } from 'react'
 import { GeneralErrorBoundary } from '#app/components/error-boundary.tsx'
 import { Button } from '#app/components/ui/button.tsx'
 import {
@@ -13,7 +15,6 @@ import {
 	DialogFooter,
 	DialogClose,
 } from '#app/components/ui/dialog.tsx'
-import { Input } from '#app/components/ui/input.tsx'
 import { Label } from '#app/components/ui/label.tsx'
 import {
 	Select,
@@ -24,8 +25,6 @@ import {
 } from '#app/components/ui/select.tsx'
 
 import { foodCategories, fakeKedai } from './fakedata.ts'
-import malaysiapostcodes from 'malaysia-postcodes'
-import { useState } from 'react'
 
 function ShopList() {
 	return (
@@ -162,12 +161,11 @@ function Header() {
 	)
 }
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ }: DataFunctionArgs) {
 	return null
 }
 
 export default function ShopRoute() {
-	const data = useLoaderData<typeof loader>()
 
 	return (
 		<div className="p-4">

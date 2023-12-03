@@ -1,3 +1,4 @@
+import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { type DataFunctionArgs, json } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
 import {
@@ -5,15 +6,7 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from '#app/components/ui/avatar.tsx'
-import {
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from '#app/components/ui/tabs.tsx'
-import { fakeMenuList } from './fakedata.ts'
 import { Button } from '#app/components/ui/button.tsx'
-import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import {
 	Sheet,
 	SheetTrigger,
@@ -22,6 +15,13 @@ import {
 	SheetHeader,
     SheetFooter,
 } from '#app/components/ui/sheet.tsx'
+import {
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+} from '#app/components/ui/tabs.tsx'
+import { fakeMenuList } from './fakedata.ts'
 
 export async function loader({ params }: DataFunctionArgs) {
 	return json({ shopId: params.shopId })

@@ -22,7 +22,6 @@ import {
 	useLoaderData,
 	useSubmit,
 } from '@remix-run/react'
-import { withSentry } from '@sentry/remix'
 import { useRef } from 'react'
 import { AuthenticityTokenProvider } from 'remix-utils/csrf/react'
 import { HoneypotProvider } from 'remix-utils/honeypot/react'
@@ -251,7 +250,7 @@ function AppWithProviders() {
 	)
 }
 
-export default withSentry(AppWithProviders)
+export default AppWithProviders
 
 function UserDropdown() {
 	const user = useUser()
